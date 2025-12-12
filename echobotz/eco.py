@@ -6,7 +6,6 @@ class echo(object):
 <b>This bot scrapes posters from various OTT platforms and bypasses direct links from cloud sites.</b>  
 
 <b>✺ Commands</b>  
-
 <blockquote expandable>  
 /poster - Scrape any movie/show poster  
 /overlap - Overlay a logo on a poster  
@@ -43,7 +42,6 @@ class echo(object):
 /facebook - Facebook thumbnail  
 /tiktok - TikTok thumbnail  
 </blockquote>  
-
 <b>Examples</b>  
 <code>/poster Avatar</code>  
 <code>/poster Avatar 2022</code>  
