@@ -249,17 +249,28 @@ def _pack_html(results, page=1, per_page=10):
 
     out = []
     for i, item in enumerate(results[start:end], start=1 + start):
-        name = item.get("file_name") or "File"
-        sz = item.get("file_size") or "N/A"
-        out.append(f"<b>{i}. {name}</b> <code>({sz})</code>")
+        name = (
+            item.get("file_name")
+            or item.get("quality")
+            or item.get("name")
+            or "File"
+        )
 
-        links = item.get("links") or []
-        for li in links:
-            typ = li.get("type") or "Link"
-            url = li.get("url")
-            if not isinstance(url, str) or not url.startswith(("http://", "https://")):
-                continue
-            out.append(f'   ╞ <b>{typ}</b>: <a href="{url}">Click Here</a>')
+        size = item.get("file_size") or "N/A"
+        out.append(f"<b>{i}. {name}</b> <code>({size})</code>")
+
+        if "links" in item and isinstance(item["links"], list):
+            for li in item["links"]:
+                typ = li.get("type") or li.get("tag") or "Link"
+                url = li.get("url")
+                if isinstance(url, str) and url.startswith(("http://", "https://")):
+                    out.append(f'   ╞ <b>{typ}</b>: <a href="{url}">Click Here</a>')
+
+        elif "link" in item and isinstance(item["link"], str):
+            url = item["link"]
+            if url.startswith(("http://", "https://")):
+                out.append(f'   ╰╴ <b>Open Link</b>: <a href="{url}">Click Here</a>')
+
         out.append("")
 
     txt = "\n".join(out).strip()
