@@ -96,6 +96,7 @@ _WORKERS = {
     "instagram": "https://instagramdl.the-zake.workers.dev/?url=",
     "facebook": "https://facebookdl.the-zake.workers.dev/?url=",
     "tiktok": "https://tiktokdl.the-zake.workers.dev/?url=",
+    # Crunchyroll API by Bharath_boy
     "crunchyroll": "https://crunchyroll.blaze-updatez.workers.dev/?q=",
     "primevideo": "https://primevideo.pbx1bots.workers.dev/?url=",
 }
