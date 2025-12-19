@@ -257,7 +257,11 @@ def _pack_html(results, page=1, per_page=10):
         )
 
         size = item.get("file_size") or "N/A"
-        out.append(f"<b>{i}. {name}</b> <code>({size})</code>")
+
+        if size != "N/A":
+            out.append(f"<b>{i}. {name}</b> <code>({size})</code>")
+        else:
+            out.append(f"<b>{i}. {name}</b>")
 
         if "links" in item and isinstance(item["links"], list):
             for li in item["links"]:
