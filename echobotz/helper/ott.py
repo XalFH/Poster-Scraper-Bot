@@ -131,7 +131,7 @@ def _normalize_ott_json(provider: str, data: dict):
 
     root = data.get("data", data)
 
-    poster = root.get("poster") or root.get("thumbnail") or root.get("image")
+    poster = root.get("portrait") or root.get("poster") or root.get("poster_url") or root.get("thumbnail") or root.get("image") or root.get("image_url")
     landscape = root.get("landscape") or root.get("banner") or root.get("backdrop")
 
     urls = []
