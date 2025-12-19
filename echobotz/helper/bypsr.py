@@ -97,31 +97,42 @@ def _bp_links(links):
     if not isinstance(links, dict) or not links:
         return "╰╴ No direct links found."
 
-    valid = []
+    groups = {}
+
     for label, url in links.items():
         if not isinstance(url, str):
             continue
         u = url.strip()
         if not u.startswith(("http://", "https://")):
             continue
-        lbl = str(label).strip() or "Link"
-        valid.append((lbl, u))
 
-    if not valid:
+        text = str(label).strip()
+
+        if "|" in text:
+            left, right = text.split("|", 1)
+            group = left.strip()
+            server = right.strip()
+        else:
+            group = "Links"
+            server = text
+
+        groups.setdefault(group, []).append((server, u))
+
+    if not groups:
         return "╰╴ No direct links found."
 
     lines = []
-    total = len(valid)
-    for i, (lbl, u) in enumerate(valid):
-        if i == total - 1:
-            prefix = "╰╴"
-        else:
-            prefix = "╞╴"
-        lines.append(
-            f"{prefix} <b>{lbl}:</b> <a href=\"{u}\">Click Here</a>"
-        )
 
-    return "\n".join(lines)
+    for group, items in groups.items():
+        lines.append(f"\n<b>{group}</b>")
+        total = len(items)
+        for i, (server, url) in enumerate(items):
+            prefix = "╰╴" if i == total - 1 else "╞╴"
+            lines.append(
+                f"{prefix} <b>{server}:</b> <a href=\"{url}\">Click Here</a>"
+            )
+
+    return "\n".join(lines).strip()
     
 def _bp_norm(data, service):
     root = data
